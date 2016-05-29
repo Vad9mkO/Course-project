@@ -10,59 +10,81 @@ namespace AstronomicalDirectory
 {
     class StarMovement
     {
-        internal Space Space { get; set; }
-        internal readonly Point screenCenter;            
+        internal Star linkToStarFromBuffer { get; }
+        internal Point screenCenter { get; }
         internal Point curCenter;
-        internal int radius;           
-        internal Color bgcolor;          
-        internal int alpha = 45;// прозрачность
-        private bool makeRadiusBigger;
-        private double distFromCenter;
-        private double index;
+        internal int radius { get; set; }
+        internal Color bgcolor { get; }
+        internal int alpha { get; set; }// transparency
+        private bool makeRadiusBigger { get; set; }
+        private double distFromCenter { get; }
+        internal double speedRateAdditionalIndex { get; set; }
 
-        private int brightnessCounter;//constant
-        private int counter;//when this rqual to 'brightnessCounter' then star begins to bright (3 step of increasing radius and 3 steps of decreasing)
+        private int brightnessCounter { get; set; }//constant
+        private int counter { get; set; }//when this rqual to 'brightnessCounter' then star begins to bright (3 step of increasing radius and 3 steps of decreasing)
 
-        double ang = 360;
-        double a;//большая полуось, x  180
-        double b;// малая полуось, y    69
+        double angle { get; set; }//on this depents where stars will appear
+        double aSemiAxis { get; }//большая полуось
+        double bSemiAxis { get; }// малая полуось
 
-        public StarMovement(Point center, int radius, double distFromCenter, Color bgColor, int randBrightTimer)
+        public StarMovement(Point center, int radius, int angleOfAppearing, Color bgColor, int randBrightTimer, Star linkToStar)
         {
+            this.angle = angleOfAppearing;
             this.screenCenter = center;
             this.curCenter = center;
             this.radius = radius;
-            this.distFromCenter = Math.Round(distFromCenter);
+            this.distFromCenter = Math.Round(linkToStar.Distance);
+            this.linkToStarFromBuffer = linkToStar;
             this.bgcolor = bgColor;
             this.makeRadiusBigger = true;
             this.counter = 0;
             this.brightnessCounter = randBrightTimer;//in which time star will start to bright
+            this.alpha = 15;
 
-            if(distFromCenter < 10)
+            aSemiAxis = distFromCenter / 0.09;
+            bSemiAxis = distFromCenter / 0.15;
+            this.speedRateAdditionalIndex = 1.0 / (distFromCenter * 10);//defines speed of stars
+        }
+
+        internal void Step(string rotateType)
+        {
+            //Ellipse
+            /*
+
+        int ugol;
+        int rad = 200;
+        double k = 0.3;
+
+        double pi = Math.PI;
+        double inc = Math.PI / 300;
+
+        double t = 0;
+         ugol = angleOfAppearing;
+
+
+            var x1_t = (rad * Math.Cos(t));
+            var y1_t = (rad * k * Math.Sin(t));
+            
+            curCenter.X = Convert.ToInt32(Math.Round(x1_t * Math.Cos(ugol) + y1_t * Math.Sin(ugol) + screenCenter.X));
+            curCenter.Y = Convert.ToInt32(Math.Round(-1 * x1_t * Math.Sin(ugol) + y1_t * Math.Cos(ugol) + screenCenter.Y));
+
+
+            t += inc;
+            */
+
+
+            curCenter.X = Convert.ToInt32(aSemiAxis * Math.Cos(angle) + screenCenter.X);
+            curCenter.Y = Convert.ToInt32(bSemiAxis * Math.Sin(angle) + screenCenter.Y);
+
+            if(rotateType == "left")
             {
-                a = distFromCenter * 20;
-                b = distFromCenter * 10;
+                angle -= speedRateAdditionalIndex;
             }
             else
             {
-                a = distFromCenter * 15;
-                b = distFromCenter * 5;
-            } 
-            index = 1.0 / (distFromCenter / 2);//определяет скорость звезд
-        }
-
-        internal void Step()
-        {
-            //КРУГ
-            //curCenter.X = screenCenter.X + (int)(distFromCenter * Math.Cos(angle * 6.30296));//ЗАДАЛИ НОВЫЕ КООРДИНАТЫ
-            //curCenter.Y = screenCenter.Y + (int)(distFromCenter * Math.Sin(angle * 6.30296));
-            //this.angle += d_angle;
-
-            //ЭЛИПС
-            curCenter.X = Convert.ToInt32(a * Math.Cos(ang * index) + screenCenter.X);
-            curCenter.Y = Convert.ToInt32(b * Math.Sin(ang * index) + screenCenter.Y);
-         
-            ang -= 0.1;
+                angle += speedRateAdditionalIndex;
+            }
+      
 
             counter++;
             if(counter == brightnessCounter)
@@ -70,7 +92,7 @@ namespace AstronomicalDirectory
                 if (makeRadiusBigger)//увеличиваем радиус увеличиваем прозрачность
                 {
                     radius++;
-                    alpha += 70;
+                    alpha += 50;
                     if (radius == 8)//останавливаемся
                     {
                         makeRadiusBigger = false;
@@ -79,7 +101,7 @@ namespace AstronomicalDirectory
                 else//уменьшаем радиус уменьшаем прозрачность
                 {
                     radius--;
-                    alpha -= 70;
+                    alpha -= 50;
                     if (radius == 5)
                     {
                         makeRadiusBigger = true;//and went out of this "increasing-decreasing cycle"

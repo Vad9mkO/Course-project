@@ -114,7 +114,7 @@ namespace AstronomicalDirectory
                 if(!showVisibleStars && !showVisibleConstellations)
                 {
                     GridView.DataSource = main.buffer[main.curBufIndex].SearchBrightest();
-                    main.ResizeGridRowHeight(GridView);
+                    main.ResizeGridRowHeight(GridView, 22);
                 }
             }
         }
@@ -155,7 +155,7 @@ namespace AstronomicalDirectory
                     else
                     { 
                         GridView.Visible = true;
-                        main.ResizeGridRowHeight(GridView);
+                        main.ResizeGridRowHeight(GridView, 22);
                     }            
                 }
                 else if (showVisibleConstellations)
@@ -169,7 +169,7 @@ namespace AstronomicalDirectory
                     else
                     {
                         GridView.Visible = true;
-                        main.ResizeGridRowHeight(GridView);
+                        main.ResizeGridRowHeight(GridView, 22);
                     }
                 }
             }
@@ -210,7 +210,7 @@ namespace AstronomicalDirectory
                 }
                 SupportingGridView.DataSource = listToShow;
                 SupportingGridView.Visible = true;
-                main.ResizeGridRowHeight(SupportingGridView);
+                main.ResizeGridRowHeight(SupportingGridView, 22);
             }
         }  
         

@@ -71,13 +71,14 @@
             // 
             // Cancel
             // 
+            this.Cancel.BackColor = System.Drawing.Color.LimeGreen;
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Cancel.Location = new System.Drawing.Point(323, 217);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(65, 32);
             this.Cancel.TabIndex = 0;
             this.Cancel.Text = "Cancel";
-            this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.UseVisualStyleBackColor = false;
             // 
             // GridView
             // 
@@ -85,6 +86,8 @@
             this.GridView.AllowUserToResizeColumns = false;
             this.GridView.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.GridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.GridView.AutoGenerateColumns = false;
             this.GridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -93,7 +96,7 @@
             this.GridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.RaisedVertical;
             this.GridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightSeaGreen;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
@@ -110,7 +113,7 @@
             this.ColDeclension});
             this.GridView.DataSource = this.starListBindingSource;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightSeaGreen;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
@@ -136,6 +139,7 @@
             this.GridView.RowHeadersVisible = false;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.GridView.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.GridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GridView.Size = new System.Drawing.Size(405, 97);
             this.GridView.TabIndex = 1;
             this.GridView.VirtualMode = true;
@@ -169,6 +173,7 @@
             // LongitudeLabel
             // 
             this.LongitudeLabel.AutoSize = true;
+            this.LongitudeLabel.BackColor = System.Drawing.Color.SeaGreen;
             this.LongitudeLabel.Location = new System.Drawing.Point(199, 163);
             this.LongitudeLabel.Name = "LongitudeLabel";
             this.LongitudeLabel.Size = new System.Drawing.Size(78, 13);
@@ -184,6 +189,7 @@
             // 
             // LatitudeLabel
             // 
+            this.LatitudeLabel.BackColor = System.Drawing.Color.SeaGreen;
             this.LatitudeLabel.Location = new System.Drawing.Point(199, 191);
             this.LatitudeLabel.Name = "LatitudeLabel";
             this.LatitudeLabel.Size = new System.Drawing.Size(78, 13);
@@ -199,12 +205,13 @@
             // 
             // Search
             // 
+            this.Search.BackColor = System.Drawing.Color.LimeGreen;
             this.Search.Location = new System.Drawing.Point(207, 217);
             this.Search.Name = "Search";
             this.Search.Size = new System.Drawing.Size(65, 32);
             this.Search.TabIndex = 6;
             this.Search.Text = "Search";
-            this.Search.UseVisualStyleBackColor = true;
+            this.Search.UseVisualStyleBackColor = false;
             this.Search.Click += new System.EventHandler(this.Search_Click);
             // 
             // SupportingGridView
@@ -355,6 +362,7 @@
             this.Controls.Add(this.LongitudeLabel);
             this.Controls.Add(this.GridView);
             this.Controls.Add(this.Cancel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ShowStars";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -10,7 +10,7 @@ namespace AstronomicalDirectory
 {
     class DataAccess
     {
-        public static StarList CreateListFromFile()
+        internal static StarList CreateListFromFile()
         {
             StarList list = new StarList();
             try
@@ -23,7 +23,13 @@ namespace AstronomicalDirectory
                         int quantity = Int32.Parse(firstString.ToString());
                         for (int i = 0; i < quantity; i++)
                         {
-                            list.Add(new Star(read.ReadLine(), read.ReadLine(), Double.Parse(read.ReadLine()), Double.Parse(read.ReadLine()), Double.Parse(read.ReadLine()), Double.Parse(read.ReadLine())));
+                            list.Add(new Star(read.ReadLine(),
+                                read.ReadLine(), 
+                                Double.Parse(read.ReadLine()),
+                                Double.Parse(read.ReadLine()), 
+                                Double.Parse(read.ReadLine()),
+                                Double.Parse(read.ReadLine())
+                                ));
                         }
                         read.Close();
                         return list;
@@ -37,9 +43,9 @@ namespace AstronomicalDirectory
             } 
         }
         
-        public static void WriteToFile(List<Star> list)
+        internal static void WriteToFile(List<Star> list)
         {
-            StreamWriter write = new StreamWriter(new FileStream(@"database.txt", FileMode.Truncate, FileAccess.Write));//C:\\Users\\User\\Documents\\Visual Studio 2015\\Projects\\Forms\\Practice\\database.txt"
+            StreamWriter write = new StreamWriter(new FileStream(@"database.txt", FileMode.Truncate, FileAccess.Write));
             if (list != null)
             { 
                 write.WriteLine(list.Count);

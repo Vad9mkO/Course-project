@@ -29,11 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,7 +87,7 @@
             // 
             // MainMenu
             // 
-            this.MainMenu.BackColor = System.Drawing.Color.Lime;
+            this.MainMenu.BackColor = System.Drawing.Color.Yellow;
             this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripMenuItem,
             this.editToolStripMenuItem,
@@ -194,8 +200,8 @@
             this.MenuViewableStars,
             this.MenuViewableConstellations});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.showToolStripMenuItem.Text = "Show";
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.showToolStripMenuItem.Text = "Search";
             // 
             // MenuBrightestStars
             // 
@@ -223,34 +229,39 @@
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showAnimationToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.viewToolStripMenuItem.Text = "Show";
             // 
             // showAnimationToolStripMenuItem
             // 
             this.showAnimationToolStripMenuItem.Name = "showAnimationToolStripMenuItem";
-            this.showAnimationToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.showAnimationToolStripMenuItem.Text = "Show animation";
+            this.showAnimationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showAnimationToolStripMenuItem.Text = "Animation";
             this.showAnimationToolStripMenuItem.Click += new System.EventHandler(this.showAnimationToolStripMenuItem_Click);
             // 
             // GridView
             // 
             this.GridView.AllowUserToAddRows = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.GridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.GridView.AllowUserToDeleteRows = false;
+            this.GridView.AllowUserToResizeColumns = false;
+            this.GridView.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.GridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.GridView.AutoGenerateColumns = false;
-            this.GridView.BackgroundColor = System.Drawing.Color.OrangeRed;
+            this.GridView.BackgroundColor = System.Drawing.Color.White;
             this.GridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.GridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.RaisedVertical;
             this.GridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.GridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.GridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn,
@@ -260,56 +271,67 @@
             this.rightAscensionDataGridViewTextBoxColumn,
             this.declensionDataGridViewTextBoxColumn});
             this.GridView.DataSource = this.starListBindingSource;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.GridView.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Olive;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.GridView.DefaultCellStyle = dataGridViewCellStyle9;
             this.GridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.GridView.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.GridView.GridColor = System.Drawing.Color.Maroon;
             this.GridView.ImeMode = System.Windows.Forms.ImeMode.On;
             this.GridView.Location = new System.Drawing.Point(0, 212);
             this.GridView.Name = "GridView";
             this.GridView.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.GridView.RowHeadersVisible = false;
+            this.GridView.RightToLeft = System.Windows.Forms.RightToLeft.No;
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.GridView.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.GridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.GridView.RowHeadersVisible = false;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.SteelBlue;
+            this.GridView.RowsDefaultCellStyle = dataGridViewCellStyle11;
             this.GridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.GridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.GridView.Size = new System.Drawing.Size(507, 237);
             this.GridView.TabIndex = 4;
             this.GridView.VirtualMode = true;
+            this.GridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridView_CellContentClick);
+            this.GridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridView_CellContentDoubleClick);
             // 
             // nameDataGridViewTextBoxColumn
             // 
             this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.nameDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
             this.nameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // constellationDataGridViewTextBoxColumn
             // 
-            this.constellationDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.constellationDataGridViewTextBoxColumn.DataPropertyName = "Constellation";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.constellationDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.constellationDataGridViewTextBoxColumn.HeaderText = "Constellation";
             this.constellationDataGridViewTextBoxColumn.Name = "constellationDataGridViewTextBoxColumn";
             this.constellationDataGridViewTextBoxColumn.ReadOnly = true;
+            this.constellationDataGridViewTextBoxColumn.Width = 90;
             // 
             // distanceDataGridViewTextBoxColumn
             // 
             this.distanceDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.distanceDataGridViewTextBoxColumn.DataPropertyName = "Distance";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            this.distanceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
             this.distanceDataGridViewTextBoxColumn.HeaderText = "Distance";
             this.distanceDataGridViewTextBoxColumn.Name = "distanceDataGridViewTextBoxColumn";
             this.distanceDataGridViewTextBoxColumn.ReadOnly = true;
@@ -318,7 +340,10 @@
             // 
             this.starMagnitudeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.starMagnitudeDataGridViewTextBoxColumn.DataPropertyName = "StarMagnitude";
-            this.starMagnitudeDataGridViewTextBoxColumn.HeaderText = "StarMagnitude";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.starMagnitudeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            this.starMagnitudeDataGridViewTextBoxColumn.HeaderText = "Star Magnitude";
             this.starMagnitudeDataGridViewTextBoxColumn.Name = "starMagnitudeDataGridViewTextBoxColumn";
             this.starMagnitudeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -326,7 +351,9 @@
             // 
             this.rightAscensionDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.rightAscensionDataGridViewTextBoxColumn.DataPropertyName = "RightAscension";
-            this.rightAscensionDataGridViewTextBoxColumn.HeaderText = "RightAscension";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.rightAscensionDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            this.rightAscensionDataGridViewTextBoxColumn.HeaderText = "Right Ascension";
             this.rightAscensionDataGridViewTextBoxColumn.Name = "rightAscensionDataGridViewTextBoxColumn";
             this.rightAscensionDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -334,6 +361,8 @@
             // 
             this.declensionDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.declensionDataGridViewTextBoxColumn.DataPropertyName = "Declension";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.declensionDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
             this.declensionDataGridViewTextBoxColumn.HeaderText = "Declension";
             this.declensionDataGridViewTextBoxColumn.Name = "declensionDataGridViewTextBoxColumn";
             this.declensionDataGridViewTextBoxColumn.ReadOnly = true;
@@ -347,7 +376,7 @@
             this.NameLabel.AutoSize = true;
             this.NameLabel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.NameLabel.ForeColor = System.Drawing.Color.Green;
-            this.NameLabel.Location = new System.Drawing.Point(12, 45);
+            this.NameLabel.Location = new System.Drawing.Point(11, 183);
             this.NameLabel.Name = "NameLabel";
             this.NameLabel.Size = new System.Drawing.Size(35, 13);
             this.NameLabel.TabIndex = 5;
@@ -358,7 +387,7 @@
             this.ConstellationLabel.AutoSize = true;
             this.ConstellationLabel.BackColor = System.Drawing.Color.Black;
             this.ConstellationLabel.ForeColor = System.Drawing.Color.Green;
-            this.ConstellationLabel.Location = new System.Drawing.Point(11, 73);
+            this.ConstellationLabel.Location = new System.Drawing.Point(178, 183);
             this.ConstellationLabel.Name = "ConstellationLabel";
             this.ConstellationLabel.Size = new System.Drawing.Size(67, 13);
             this.ConstellationLabel.TabIndex = 6;
@@ -366,39 +395,41 @@
             // 
             // NameText
             // 
-            this.NameText.Location = new System.Drawing.Point(82, 45);
+            this.NameText.Location = new System.Drawing.Point(52, 183);
             this.NameText.Name = "NameText";
-            this.NameText.Size = new System.Drawing.Size(156, 20);
+            this.NameText.Size = new System.Drawing.Size(98, 20);
             this.NameText.TabIndex = 10;
-            this.NameText.Validating += new System.ComponentModel.CancelEventHandler(this.NameText_Validating);
+            this.NameText.TextChanged += new System.EventHandler(this.NameText_TextChanged);
             // 
             // ConstellationText
             // 
-            this.ConstellationText.Location = new System.Drawing.Point(82, 73);
+            this.ConstellationText.Location = new System.Drawing.Point(251, 183);
             this.ConstellationText.Name = "ConstellationText";
-            this.ConstellationText.Size = new System.Drawing.Size(156, 20);
+            this.ConstellationText.Size = new System.Drawing.Size(98, 20);
             this.ConstellationText.TabIndex = 11;
-            this.ConstellationText.Validating += new System.ComponentModel.CancelEventHandler(this.ConstellationText_Validating);
             // 
             // StarSearch
             // 
-            this.StarSearch.Location = new System.Drawing.Point(82, 109);
+            this.StarSearch.BackColor = System.Drawing.Color.Yellow;
+            this.StarSearch.Location = new System.Drawing.Point(379, 183);
             this.StarSearch.Name = "StarSearch";
-            this.StarSearch.Size = new System.Drawing.Size(75, 23);
+            this.StarSearch.Size = new System.Drawing.Size(52, 23);
             this.StarSearch.TabIndex = 12;
             this.StarSearch.Text = "Search";
-            this.StarSearch.UseVisualStyleBackColor = true;
+            this.StarSearch.UseVisualStyleBackColor = false;
             this.StarSearch.Click += new System.EventHandler(this.StarSearch_Click);
             // 
             // ClearButton
             // 
+            this.ClearButton.BackColor = System.Drawing.Color.Yellow;
             this.ClearButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ClearButton.Location = new System.Drawing.Point(163, 109);
+            this.ClearButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.ClearButton.Location = new System.Drawing.Point(437, 183);
             this.ClearButton.Name = "ClearButton";
-            this.ClearButton.Size = new System.Drawing.Size(75, 23);
+            this.ClearButton.Size = new System.Drawing.Size(52, 23);
             this.ClearButton.TabIndex = 13;
             this.ClearButton.Text = "Clear";
-            this.ClearButton.UseVisualStyleBackColor = true;
+            this.ClearButton.UseVisualStyleBackColor = false;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
             // PictureHeaderBox
@@ -449,6 +480,7 @@
             this.Controls.Add(this.PictureFooterBox);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "MainForm";
@@ -499,13 +531,13 @@
         private System.Windows.Forms.PictureBox PictureHeaderBox;
         private System.Windows.Forms.PictureBox PictureFooterBox;
         private System.Windows.Forms.BindingSource starListBindingSource;
+        private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn constellationDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn distanceDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn starMagnitudeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn rightAscensionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn declensionDataGridViewTextBoxColumn;
-        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }
 

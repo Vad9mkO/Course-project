@@ -13,25 +13,16 @@ namespace AstronomicalDirectory
 {
     public partial class MainForm : Form
     {
-        /*Разработать информационную систему СПРАВОЧНИК АСТРОНОМА. Система должна обеспечивать хранение сведений о видимых
-        звездах (название, созвездие, тип звезды, видимая звездная величина, расстояние от Земли, координаты на небосклоне: 
-        прямое восхождение (ч, мин) и склонение (град, мин) и т. д.), сведений о планетах (название, тип планеты, масса, размер,
-        расстояние от Солнца и период обращения, наличие атмосферы, спутники и т. д.), поиск звезд, входящих в заданное созвездие,
-        поиск самых ярких звезд созвездий, поиск видимых созвездий и звезд в заданной точке земного шара в заданное время, поиск сведений 
-        о планетах по разным запросам и т. д. Разработать: меню приложения и средства диалога, формы ввода и изменения данных, запросы 
-        (если они нужны), отчеты для вывода на печать.
-        
-            координаты на небосклоне: прямое восхождение (ч, мин) и склонение (град., мин). Поиск звезд, входящих в данное созвездие, 
-            самой яркой звезды созвездия, видимых созвездий и звезд в заданной точке земного шара в заданное время.*/
         //KHARKOV KHARKOV KHARKOV: LONGITUDE - 36,15 , LATITUDE - 50
         internal List<StarList> buffer;
         internal int curBufIndex { get; set; }
+        internal string selectedStar;
 
         public MainForm()
         {
             InitializeComponent();
         }
-        
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             StarList listFromFile = DataAccess.CreateListFromFile();
@@ -45,12 +36,11 @@ namespace AstronomicalDirectory
                 buffer = new List<StarList>() { new StarList() };
             }
             AcceptButton = StarSearch;
-            this.ActiveControl = NameText;
-       
+            this.ActiveControl = NameText;       
         }
-        
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {     
+        {
             if (curBufIndex > 0)///////////////////////////////////////////////////////////////////////////
             {
                 string result = MessageBox.Show(
@@ -82,14 +72,8 @@ namespace AstronomicalDirectory
             }
         }
 
-        protected override void OnFormClosing(FormClosingEventArgs e)//to disable validation because it don`t give a chance to close form
-        {
-            base.OnFormClosing(e);
-            e.Cancel = false;
-        }
-
         private void StarSearch_Click(object sender, EventArgs e)
-        {
+        {      
             if (buffer[curBufIndex].Count != 0)
             {
                 string name = NameText.Text.Trim();
@@ -98,6 +82,8 @@ namespace AstronomicalDirectory
                 {
                     GridView.DataSource = buffer[curBufIndex];
                     GridView.Visible = true;
+                    errorProvider.SetError(NameText, "Fill out at least one field to start finding!");
+                    errorProvider.SetError(ConstellationText, "Fill out at least one field to start finding!");
                 }
                 else if (ConstellationText.Text == "")
                 {
@@ -141,7 +127,7 @@ namespace AstronomicalDirectory
                         GridView.Visible = true;
                     }
                 }
-                ResizeGridRowHeight(GridView);
+                ResizeGridRowHeight(GridView, GridView.ColumnHeadersHeight + 1);
             }
             else
             {
@@ -153,7 +139,15 @@ namespace AstronomicalDirectory
                     addForm.ShowDialog();
                 }
             }
- 
+
+        }
+
+        private void NameText_TextChanged(object sender, EventArgs e)
+        {
+            if(ConstellationText.Text == "" && NameText.Text == "")
+            {
+                GridView.Visible = true;
+            }
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -161,7 +155,7 @@ namespace AstronomicalDirectory
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
-            }          
+            }
         }
 
         private void MenuExit_Click(object sender, EventArgs e)
@@ -188,8 +182,8 @@ namespace AstronomicalDirectory
             GridView.Refresh();
             GridView.DataSource = buffer[curBufIndex];
             GridView.Visible = true;
-            ResizeGridRowHeight(GridView);
-  
+            ResizeGridRowHeight(GridView, GridView.ColumnHeadersHeight + 1);
+
             NameText.Text = "";
             ConstellationText.Text = "";
 
@@ -231,7 +225,7 @@ namespace AstronomicalDirectory
                 }
                 else
                 {
-                    DataAccess.WriteToFile(buffer[0]);      
+                    DataAccess.WriteToFile(buffer[0]);
                 }
             }
         }
@@ -261,11 +255,11 @@ namespace AstronomicalDirectory
                 curBufIndex++;
                 UpdateGridViewAndPicture();
 
-                if(buffer[curBufIndex].Count == 0 && GridView.Visible)
+                if (buffer[curBufIndex].Count == 0 && GridView.Visible)
                 {
                     GridView.Visible = false;
                 }
-                if(buffer[curBufIndex].Count != 0 && !GridView.Visible)
+                if (buffer[curBufIndex].Count != 0 && !GridView.Visible)
                 {
                     GridView.Visible = true;
                 }
@@ -328,7 +322,7 @@ namespace AstronomicalDirectory
                     buffer.Add(new StarList());
                     curBufIndex = buffer.Count - 1;//////////////////////////////////////////////////////////////////////////////////////////////
                     UpdateGridViewAndPicture();
-                } 
+                }
             }
         }
 
@@ -370,12 +364,14 @@ namespace AstronomicalDirectory
             showAnimation.ShowDialog();
         }
 
-        internal void ResizeGridRowHeight(DataGridView gridView)//147 height of DGV
+        internal void ResizeGridRowHeight(DataGridView gridView, int headerHeight)//147 height of DGV
         {
+            
             int numberRowsAtAll = gridView.Rows.Count;
+
             if (numberRowsAtAll > 0)
             {
-                int heightWithoutHeader = gridView.Height - 22;//22 is height of header
+                int heightWithoutHeader = gridView.Height - headerHeight;//22 and 35 is height of header
                 int numberRowsVisible = heightWithoutHeader / 22;//visible without scrolling   
                 if (numberRowsVisible >= numberRowsAtAll)//number of elements that can fill dgv without scrolling
                 {
@@ -396,20 +392,51 @@ namespace AstronomicalDirectory
             }
         }
 
-        private void NameText_Validating(object sender, CancelEventArgs e)
+        private void GridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int a;
-            e.Cancel = Int32.TryParse(NameText.Text, out a);
-            string nameError = e.Cancel ? "Name field can`t consist a number" : "";
-            errorProvider.SetError(NameText, nameError);
+            var p = this.GridView.PointToClient(Cursor.Position);
+            var info = this.GridView.HitTest(p.X, p.Y);
+
+            if (info.RowIndex == -1)//sorting // && info.ColumnIndex >= 0 && info.ColumnIndex <= 5
+            {
+                string headerCellText = GridView.Columns[info.ColumnIndex].HeaderText;
+                buffer[curBufIndex].BufferSort(headerCellText, "ascending");
+                UpdateGridViewAndPicture();
+            }
+            else//we can delete or edit star, selected in gridview
+            {
+                DataGridViewCellCollection list = GridView.Rows[info.RowIndex].Cells;
+                selectedStar = list[0].Value.ToString();
+            }
         }
 
-        private void ConstellationText_Validating(object sender, CancelEventArgs e)
+        private void GridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int a;
-            e.Cancel = Int32.TryParse(ConstellationText.Text, out a);
-            string constellationError = e.Cancel ? "Constellation field can`t consist a number" : "";
-            errorProvider.SetError(ConstellationText, constellationError);
+            var p = this.GridView.PointToClient(Cursor.Position);
+            var info = this.GridView.HitTest(p.X, p.Y);
+
+            if (info.RowIndex == -1)//&& info.ColumnIndex >= 0 && info.ColumnIndex <= 5
+            {
+                string headerCellText = GridView.Columns[info.ColumnIndex].HeaderText;
+                buffer[curBufIndex].BufferSort(headerCellText, "descending");
+                UpdateGridViewAndPicture();
+            }
+            else
+            {
+                DataGridViewCellCollection list = GridView.Rows[info.RowIndex].Cells;
+                selectedStar = list[0].Value.ToString();
+
+                DialogBox dialogBox = new DialogBox();
+                dialogBox.Owner = this;
+                this.Hide();
+                dialogBox.ShowDialog();
+
+                UpdateGridViewAndPicture();
+            }
         }
+
+       
     }
+
+
 }

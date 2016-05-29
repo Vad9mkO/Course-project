@@ -8,6 +8,8 @@ namespace AstronomicalDirectory
 {
     public class StarList : List<Star>
     {
+        public delegate bool Comparator(string str1, string str2);
+
         internal StarList SearchByName(string name)
         {
             StarList result = new StarList();
@@ -104,13 +106,6 @@ namespace AstronomicalDirectory
 
             foreach (Star star in this)
             {
-                /*Прямое восхождение Ra и склонение Dec звезды нам известны из базы данных,
-                  долгота Lon и широта Lat получены при помощи GPS.
-                  Если наблюдатель находится в северном полушарии (Lat>0), то звезды со склонением
-                  Dec≤90-Lat являются невосходящими, следовательно для них высоту считать не нужно, она
-                  будет всегда отрицательна. Для наблюдателя в южном полушарии (Lat<0) невосходящими
-                  будут звезды со склонением Dec≥90+Lat. Если наблюдатель находится на экваторе (широта = 0 latitude == 0), то
-                  вычислять высоту нужно для всех звезд*/
                 if (latitude > 0 && star.Declension <= 90 - latitude || latitude < 0 && star.Declension >= 90 + latitude)
                 {
                     continue;
@@ -124,7 +119,7 @@ namespace AstronomicalDirectory
 
                 double var1 = year / 400 - year / 100 + year / 4;
                 double var2 = 365 * year - 679004;
-                double ModificatedDate = var1 + var2 + 306001 * (month + 1) / (10000 + day);///////////////но в источнике (10000 + day) - слитно, а не раздельно!!!!!
+                double ModificatedDate = var1 + var2 + 306001 * (month + 1) / (10000 + day);//
                 /*2. Вычисление местного звездного времени на момент всемирного времени UT:
                   a) модифицированная юлианская дата на начало суток в юлианских столетиях:*/
                 double T0 = (ModificatedDate - 51544.5) / 36525;
@@ -135,24 +130,23 @@ namespace AstronomicalDirectory
                 double const4 = 0.0000062;
                 double S0 = const1 + const2 * T0 + const3 * Math.Pow(T0, 2) - const4 * Math.Pow(T0, 3);
                 //c) UT - всемирное время в часах на момент расчета:
-                /*Всемирное время UT - местное среднее солнечное время гринвичского (λ=0) 
-                меридиана. Если долготу  места на Земле выражать в часовой мере и считать
-                положительной к востоку от Гринвича, то имеет место следующее соотношение:  Тм = UT0 + λ
-                Из того что Земля за 1 ч поворачивается на 15°, следует: 1° соответствует 4 мин, а 1 (угловая минута) – 4 с.*/
-                double UT = hours + minutes / 60 + seconds / 3600 - (longitude * 4) / 60;//походу просто время по гринвичу ( можно получить так: DateTime.Now.ToUniversalTime() )
+               
+                double UT = hours + minutes / 60 + seconds / 3600 - (longitude * 4) / 60;
                 //d) количество секунд, прошедших от начала суток до момента наблюдения:
                 double numberSeconds = 3600 * UT;
                 //e) количество звездных секунд, прошедших от начала суток:
                 double numberStarSeconds = (366.2422 / 365.2422) * numberSeconds;
                 //f) гринвичское среднее звездное время в градусах:
-                double SG = (S0 + numberStarSeconds) / (3600 * 15);///////////////////////////////////////////////////////////////////////
+                double SG = (S0 + numberStarSeconds) / (3600 * 15);//
                 //g) местное звездное время:
                 double ST = SG + longitude;
                 /*3. Вычисление часового угла звезды Th и высоты над горизонтом H:
                   a) часовой угол звезды:*/
                 double Th = ST - star.RightAscension;
                 //b) косинус зенитного угла:
-                double cosZ = Math.Sin(latitude * Math.PI / 180) * Math.Sin(star.Declension * Math.PI / 180) + Math.Cos(latitude * Math.PI / 180) * Math.Cos(star.Declension * Math.PI / 180) * Math.Cos(Th * Math.PI / 180);//синус должен быть в радианах
+                double cosZ = Math.Sin(latitude * Math.PI / 180) 
+                    * Math.Sin(star.Declension * Math.PI / 180) + Math.Cos(latitude * Math.PI / 180) 
+                    * Math.Cos(star.Declension * Math.PI / 180) * Math.Cos(Th * Math.PI / 180);//синус должен быть в радианах
                 //c) зенитный угол
                 double ZRad = Math.Acos(cosZ);//в радианах
                 double ZDeg = (ZRad * 180) / Math.PI;//в градусах
@@ -166,18 +160,7 @@ namespace AstronomicalDirectory
             }
             return visibleStars.Count == 0 ? null : visibleStars;
         }
-        /*
-            Пример:
-            Lon =  32,  Lat =  55
-            Year =  2009 , Mon =  10 , Day =  17, UT =  7
-            MD =  55121
-            ST =  162.915907736159
-            Пусть звезда имеет координаты:
-            RA =  279.316 , DEC =  38.797
-            Тогда
-            Th =  243.599907736159
-            H = 18.329728 ‘ звезда над горизонтом
-       */
+
         internal StarList SearchVisibleConstellations(double longitude, double latitude)
         {
             StarList visibleStars = this.SearchVisibleStars(longitude, latitude);
@@ -199,6 +182,131 @@ namespace AstronomicalDirectory
             else
             {
                 return null;
+            }
+        }
+ 
+        internal void BufferSort(string headerCellName, string sortType)
+        {
+            string type = sortType.ToLower();
+            if(type == "ascending")
+            {
+                Sort(CompareAscending, headerCellName);
+            }
+            else if(type == "descending")
+            {
+                Sort(CompareDescending, headerCellName);
+            }
+        }
+
+        private void Sort(Comparator comparator, string headerCellName)
+        {
+            for (int i = 0; i < this.Count - 1; i++)
+            {
+                for (int j = 0; j < this.Count - 1 - i; j++)
+                {
+                    if (headerCellName == "Name")
+                    {
+                        if (comparator(this[j].Name, this[j + 1].Name))
+                        {
+                            Star temp = this[j];
+                            this[j] = this[j + 1];
+                            this[j + 1] = temp;
+                        }
+                    }
+                    else if (headerCellName == "Constellation")
+                    {
+                        if (comparator(this[j].Constellation, this[j + 1].Constellation))
+                        {
+                            Star temp = this[j];
+                            this[j] = this[j + 1];
+                            this[j + 1] = temp;
+                        }
+                    }
+                    else if (headerCellName == "Distance")
+                    {
+                        if (comparator(this[j].Distance.ToString(), this[j + 1].Distance.ToString()))
+                        {
+                            Star temp = this[j];
+                            this[j] = this[j + 1];
+                            this[j + 1] = temp;
+                        }
+                    }
+                    else if (headerCellName == "Star Magnitude")
+                    {
+                        if (comparator(this[j].StarMagnitude.ToString(), this[j + 1].StarMagnitude.ToString()))
+                        {
+                            Star temp = this[j];
+                            this[j] = this[j + 1];
+                            this[j + 1] = temp;
+                        }
+                    }
+                    else if (headerCellName == "Right Ascension")
+                    {
+                        if (comparator(this[j].RightAscension.ToString(), this[j + 1].RightAscension.ToString()))
+                        {
+                            Star temp = this[j];
+                            this[j] = this[j + 1];
+                            this[j + 1] = temp;
+                        }
+                    }
+                    else if (headerCellName == "Declension")
+                    {
+                        if (comparator(this[j].Declension.ToString(), this[j + 1].Declension.ToString()))
+                        {
+                            Star temp = this[j];
+                            this[j] = this[j + 1];
+                            this[j + 1] = temp;
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool CompareAscending(string str1, string str2)
+        {
+            double firstNumber;
+            double secondNumber;
+            bool result1 = Double.TryParse(str1, out firstNumber);//assume that str2 is the same type as str1
+            bool result2 = Double.TryParse(str2, out secondNumber);
+            if (result1)
+            {
+                if (firstNumber > secondNumber)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                if (String.Compare(str1, str2) == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        private bool CompareDescending(string str1, string str2)
+        {
+            double firstNumber;
+            double secondNumber;
+            bool result1 = Double.TryParse(str1, out firstNumber);//assume that str2 is the same type as str1
+            bool result2 = Double.TryParse(str2, out secondNumber);
+            if (result1)
+            {
+                if (firstNumber < secondNumber)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                if (String.Compare(str1, str2) == -1)
+                {
+                    return true;
+                }
+                return false;
             }
         }
     }

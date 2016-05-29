@@ -194,52 +194,57 @@
             // 
             // AddStar
             // 
+            this.AddStar.BackColor = System.Drawing.Color.OrangeRed;
             this.AddStar.Location = new System.Drawing.Point(39, 265);
             this.AddStar.Name = "AddStar";
             this.AddStar.Size = new System.Drawing.Size(75, 23);
             this.AddStar.TabIndex = 17;
             this.AddStar.Text = "Add";
-            this.AddStar.UseVisualStyleBackColor = true;
+            this.AddStar.UseVisualStyleBackColor = false;
             this.AddStar.Click += new System.EventHandler(this.AddStar_Click);
             // 
             // EditStar
             // 
+            this.EditStar.BackColor = System.Drawing.Color.OrangeRed;
             this.EditStar.Location = new System.Drawing.Point(145, 265);
             this.EditStar.Name = "EditStar";
             this.EditStar.Size = new System.Drawing.Size(75, 23);
             this.EditStar.TabIndex = 18;
             this.EditStar.Text = "Edit";
-            this.EditStar.UseVisualStyleBackColor = true;
+            this.EditStar.UseVisualStyleBackColor = false;
             this.EditStar.Click += new System.EventHandler(this.EditStar_Click);
             // 
             // ClearFields
             // 
+            this.ClearFields.BackColor = System.Drawing.Color.OrangeRed;
             this.ClearFields.Location = new System.Drawing.Point(253, 265);
             this.ClearFields.Name = "ClearFields";
             this.ClearFields.Size = new System.Drawing.Size(75, 23);
             this.ClearFields.TabIndex = 19;
             this.ClearFields.Text = "Clear";
-            this.ClearFields.UseVisualStyleBackColor = true;
+            this.ClearFields.UseVisualStyleBackColor = false;
             this.ClearFields.Click += new System.EventHandler(this.ClearFields_Click);
             // 
             // Cancel
             // 
+            this.Cancel.BackColor = System.Drawing.Color.OrangeRed;
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Cancel.Location = new System.Drawing.Point(361, 265);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(75, 23);
             this.Cancel.TabIndex = 20;
             this.Cancel.Text = "Cancel";
-            this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.UseVisualStyleBackColor = false;
             // 
             // DeleteStar
             // 
+            this.DeleteStar.BackColor = System.Drawing.Color.OrangeRed;
             this.DeleteStar.Location = new System.Drawing.Point(361, 219);
             this.DeleteStar.Name = "DeleteStar";
             this.DeleteStar.Size = new System.Drawing.Size(75, 23);
             this.DeleteStar.TabIndex = 21;
             this.DeleteStar.Text = "Delete";
-            this.DeleteStar.UseVisualStyleBackColor = true;
+            this.DeleteStar.UseVisualStyleBackColor = false;
             this.DeleteStar.Click += new System.EventHandler(this.DeleteStar_Click);
             // 
             // ListBox
@@ -250,7 +255,7 @@
             this.ListBox.FormattingEnabled = true;
             this.ListBox.Location = new System.Drawing.Point(343, 19);
             this.ListBox.Name = "ListBox";
-            this.ListBox.Size = new System.Drawing.Size(116, 94);
+            this.ListBox.Size = new System.Drawing.Size(116, 184);
             this.ListBox.TabIndex = 22;
             this.ListBox.ThreeDCheckBoxes = true;
             // 
@@ -300,6 +305,7 @@
             this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.pictureBox);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "StarEditor";

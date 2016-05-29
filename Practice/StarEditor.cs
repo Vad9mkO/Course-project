@@ -107,10 +107,10 @@ namespace AstronomicalDirectory
             NameBox.Visible = false;
             NameLabel.Visible = false;
             enableListDeleting = true;
-            DeleteStar.Location = new Point(155, 140);
-            Cancel.Location = new Point(248, 140);
-            ListBox.Location = new Point(155, 30);
-            ListBox.Size = new Size(167, 94);
+            DeleteStar.Location = new Point(155, 220);
+            Cancel.Location = new Point(248, 220);
+            ListBox.Location = new Point(155, 20);
+            ListBox.Size = new Size(167, 185);
             this.Size = new Size(480, 300);
             AcceptButton = DeleteStar;
         }
@@ -121,6 +121,11 @@ namespace AstronomicalDirectory
             if (enableSingleDeliting || enableEditing)
             {
                 NameBox.DataSource = main.buffer[main.curBufIndex];                        //write into namebox element fields "name" of buffer first element
+                if (main.selectedStar != null)
+                {
+                    NameBox.Text = main.selectedStar;
+                }
+
                 if (enableEditing)//because we cant declare "main" owner in constructor, only in method onload (1.constructor 2.declare owner in mainforn 3. declare owner in "son" form
                 {
                     Star star = main.buffer[main.curBufIndex].Retrieve(NameBox.Text);
@@ -224,26 +229,27 @@ namespace AstronomicalDirectory
             errorProvider.Clear();
             NameBox.Text = "checked";//box not visible but also is checked for emptiness by IsValid function
 
-            if(IsValid())
+            if(IsValid())//validation
             {
-                Star star = main.buffer[main.curBufIndex].Retrieve(NewNameText.Text);
+                Star star = main.buffer[main.curBufIndex].Retrieve(NewNameText.Text);//checking star for exsistance
                 if (star == null)
                 {
                     AddToBuffer();
                 }
                 else
                 {
-                    MessageBox.Show("The '" + NewNameText.Text + "' star already exists!", "Existance failure!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("The '" + NewNameText.Text + "' star already exists!", 
+                        "Existance failure!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
         }
 
         private void AddToBuffer()
         {
-            AddDeployedPart();
+            AddDeployedPart();//method required for version control
           
             StarList newList = main.buffer[main.curBufIndex].CloneList();
-            Star starToAdd = new Star(
+            Star starToAdd = new Star(//add new version of star list
                                    NewNameText.Text,
                                    ConstellationText.Text,
                                    Double.Parse(DistanceText.Text),
@@ -251,15 +257,15 @@ namespace AstronomicalDirectory
                                    Double.Parse(RightAscensionText.Text),
                                    Double.Parse(DeclensionText.Text));
             newList.Add(starToAdd);
-            main.buffer.Add(newList);
+            main.buffer.Add(newList);//add new version of star list
             main.curBufIndex = main.buffer.Count - 1;
-            main.GridView.DataSource = newList;
+            main.GridView.DataSource = newList;//updating table of stars
             main.GridView.Visible = true;
 
             MessageBox.Show("Succesfully added " + NewNameText.Text, "Success!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
-        private void AddDeployedPart()
+        private void AddDeployedPart()//for situation when we redo several times and make changes (we must track all steps with redo also)
         {
             if (main.curBufIndex < main.buffer.Count - 1)
             {

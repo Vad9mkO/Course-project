@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AstronomicalDirectory.DataAccess">
+    <Position X="0.5" Y="0.5" Width="1.25" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAA=</HashCode>
+      <FileName>DataAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstronomicalDirectory.Space" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAABAAAAAAAAAAQAEAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Space.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstronomicalDirectory.Star" Collapsed="true">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAQgAAQEAEAEECBAABAgAAAAAAA=</HashCode>
+      <FileName>Star.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstronomicalDirectory.StarList" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="AstronomicalDirectory.StarList.Comparator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>StarList.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AIAQAQAAIAACIAAAAABSBQAABAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>StarList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstronomicalDirectory.StarMovement">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADACAACAAAAAAAAAAAACAAAIAAAAEAIgAQBAFgAIA=</HashCode>
+      <FileName>StarMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

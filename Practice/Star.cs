@@ -21,32 +21,39 @@ namespace AstronomicalDirectory
             get { return name; }
             set { name = value; }
         }
+
         public string Constellation
         {
             get { return constellation; }
             set { constellation = value; }
         }
+
         public double StarMagnitude
         {
             get { return starMagnitude; }
             set { starMagnitude = value; }
         }
+
         public double Distance
         {
             get { return distance; }
             set { distance = value; }
         }
+
         public double RightAscension
         {
             get { return rightAscension; }
             set { rightAscension = Double.Parse(value.ToString()); }
         }
+
         public double Declension
         {
             get { return declension; }
             set { declension = Double.Parse(value.ToString()); }
         }
+
         public Star(): this(string.Empty, string.Empty, -1, -1, -1, -1){}
+
         public Star(string n, string c, double d, double sm, double dec, double ra)
         {
             name = n;
@@ -56,5 +63,16 @@ namespace AstronomicalDirectory
             rightAscension = dec;
             declension = ra;
         }
+
+        public Star(Star someStar)
+        {
+            name = someStar.Name;
+            constellation = someStar.Constellation;
+            distance = someStar.Distance;
+            starMagnitude = someStar.StarMagnitude;
+            rightAscension = someStar.RightAscension;
+            declension = someStar.Declension;
+        }
+           
     }
 }
